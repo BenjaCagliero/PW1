@@ -1,0 +1,54 @@
+
+<br/>
+<h1>Friends List</h1>
+<br/>
+<table class="table table-hover table-striped table-bordered">
+  <thead class="thead" style="background-color: #ae75ec;" >
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Twitter</th>
+      <th>User id</th>
+      <th colspan="2"> </th>
+    </tr>
+  </thead>
+  <tbody>
+
+  <% @friends.each do |friend| %>
+    <% if friend.user == current_user %>
+      <tr>
+       <% if friend.first_name.downcase.sub("í","i").delete(" ").eql?("benjaminfederico")||
+       friend.first_name.downcase.sub("í","i").delete(" ").eql?("benjamin")%>
+          <td style="background-color: #d5a500;"><%= link_to friend.first_name + ' ' + friend.last_name, friend%></td>
+          <td style="background-color: #d5a500;"><%= friend.emails %></td>
+          <td style="background-color: #d5a500;"><%= friend.phone %></td>
+          <td style="background-color: #d5a500;"><%= friend.twitter %></td>
+          <!-- <td style="background-color: #d5a500;"><%= friend.user_id %></td> -->
+          <td style="background-color: #d5a500;"><%= link_to "Show this friend", friend, class:"btn btn-danger" %></td>
+          <% if friend.user == current_user %>
+            <td style="background-color: #d5a500;"><%= link_to "Edit", edit_friend_path(friend), class:"btn btn-success" %></td>
+          <%else%>
+            <td></td>
+          <%end%>
+        <% else%>
+          <td><%= link_to friend.first_name + ' ' + friend.last_name, friend%></td>
+          <td><%= friend.emails %></td>
+          <td><%= friend.phone %></td>
+          <td><%= friend.twitter %></td>
+          <!-- <td><%= friend.user_id %></td> -->
+          <td><%= link_to "Show this friend", friend, class:"btn btn-secondary" %></td>
+          <% if friend.user == current_user %>
+            <td><%= link_to "Edit", edit_friend_path(friend), class:"btn btn-secondary" %></td>
+          <% else %>
+            <td></td>
+          <% end %>
+        <% end %>
+      <% end %>
+  <% end %>
+</tbody>
+</table>
+
+<% if user_signed_in?%>
+  <%= link_to "New friend", new_friend_path, class:"btn btn-secondary" %>
+<% end %>

@@ -1,0 +1,10 @@
+<ul class="nav justify-content-center">
+  <h5>
+    <% if user_signed_in?%>
+      User e-mail: <%= current_user.email.to_s%><br>
+      ID: <%= current_user.id.to_s%>
+    <% else %>
+      Not signed in.
+    <% end %>
+  </h5>
+</ul>
